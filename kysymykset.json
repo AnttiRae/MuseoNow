@@ -10,9 +10,5 @@
       "kysymys": "Suomessa on asukkaita A:Viisi B:50 C:500 D:5000000",
       "vastaus": "D"
     }
-  ],
-  "job": {
-    "site": "www.javacodegeeks.com",
-    "name": "Java Code Geeks"
-  }
+  ]
 }
