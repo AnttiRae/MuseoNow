@@ -1,0 +1,18 @@
+{
+  "id": 1,
+  "firstname": "Katerina",
+  "kysymykset": [
+    {
+      "kysymys": "Mikä on Suomen pääkaupunki A:Perse B:Helsinki C:Kouvola D:Lempäälä",
+      "vastaus": "B"
+    },
+    {
+      "kysymys": "Suomessa on asukkaita A:Viisi B:50 C:500 D:5000000",
+      "vastaus": "D"
+    }
+  ],
+  "job": {
+    "site": "www.javacodegeeks.com",
+    "name": "Java Code Geeks"
+  }
+}
