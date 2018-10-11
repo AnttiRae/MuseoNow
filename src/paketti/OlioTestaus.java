@@ -192,16 +192,20 @@ public class OlioTestaus extends Application{
 	}
 	
 	public void visa() {
-		KysymysMaker kysymys = new KysymysMaker();
-		kysymys.createQuestions();
-		System.out.println(kysymys.showQuestion(1));
-		System.out.println("\nVastaus:");
-		Scanner lukija = new Scanner(System.in);
-		kysymys.giveAnswers(lukija.nextLine());
-		if (kysymys.checkAnswer(1)) {
-			System.out.println("OIKEIN");
-		}else {
-			System.out.println("VÄÄRIN");
-		}
-	}
+        int KysymysNumero = 0;
+        int kysymysArrayLenght = kysymys.giveKysymysArrayLength();
+        for (KysymysNumero=0; KysymysNumero>kysymysArrayLenght; KysymysNumero++){
+            KysymysMaker kysymys = new KysymysMaker();
+            kysymys.createQuestions();
+            System.out.println(kysymys.showQuestion(KysymysNumero));
+            System.out.println("\nVastaus:");
+            Scanner lukija = new Scanner(System.in);
+            kysymys.giveAnswers(lukija.nextLine());
+        if (kysymys.checkAnswer(KysymysNumero)) {
+            System.out.println("Right");
+        }else {
+            System.out.println("Wrong");
+        }
+        }
+    }
 }
