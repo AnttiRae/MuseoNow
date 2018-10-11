@@ -205,6 +205,8 @@ public class OlioTestaus extends Application{
             kysymys.giveAnswers(lukija.nextLine());
         if (kysymys.checkAnswer(KysymysNumero)) {
             System.out.println("Right");
+            pisteet.AddScore(Points);
+			System.out.println("Pisteet: "+Points);
         }else {
             System.out.println("Wrong");
         }
