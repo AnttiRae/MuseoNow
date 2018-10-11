@@ -67,6 +67,14 @@ public class KysymysMaker {
 			ex.printStackTrace();
 		}
 	}
+	public int giveKysymysArrayLength() {
+		return kysymysArray.length;
+	}
+	
+	public int giveVastausArrayLength() {
+		return vastausArray.length;
+	}
+	
 	
 	public String showQuestion(int i) {
 		return kysymysArray[i];

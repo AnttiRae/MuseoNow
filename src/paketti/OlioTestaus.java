@@ -44,13 +44,13 @@ public class OlioTestaus extends Application{
 		
 		//GAME 
 		GridPane gridGame = new GridPane();
-		Text gameSceneTitle = new Text("Game is under construction ebin");
+		Text gameSceneTitle = new Text("Game about stuff");
 		Scene sceneGame = new Scene(gridGame, 640, 800);
 		
 		gameSceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-		gridGame.add(gameSceneTitle, 0, 0, 2, 1);
+		gridGame.add(gameSceneTitle, 1, 1, 2, 1);
 		
-		gridGame.setAlignment(Pos.TOP_CENTER);
+		gridGame.setAlignment(Pos.TOP_LEFT);
 		gridGame.setHgap(10);
 		gridGame.setVgap(10);
 		gridGame.setPadding(new Insets(25, 25, 25, 25));
@@ -72,7 +72,7 @@ public class OlioTestaus extends Application{
 		});
 		
 		GridPane gridMap = new GridPane();
-		Text mapSceneTitle = new Text("Map is under construction ebin");
+		Text mapSceneTitle = new Text("Map is under construction");
 		Scene sceneMap = new Scene(gridMap, 640	,800);
 		
 		//MAP
@@ -92,7 +92,6 @@ public class OlioTestaus extends Application{
 				//Press button >> stuff happens here
 				primaryStage.setScene(sceneMap);
 				primaryStage.show();
-				visa();
 			}
 		});
 		
@@ -113,10 +112,10 @@ public class OlioTestaus extends Application{
 		
 		
 		gridGame.add(gameStart, 0, 0);
-		gridGame.add(gameChoiceA, 2, 2);
-		gridGame.add(gameChoiceB, 2, 3);
-		gridGame.add(gameChoiceD, 2, 4);
-		gridGame.add(gameChoiceC, 2, 5);
+		gridGame.add(gameChoiceA, 2, 4);
+		gridGame.add(gameChoiceB, 2, 5);
+		gridGame.add(gameChoiceD, 2, 6);
+		gridGame.add(gameChoiceC, 2, 7);
 		
 		gameStart.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -133,6 +132,8 @@ public class OlioTestaus extends Application{
 			public void handle(ActionEvent event) {
 				kysymys.giveAnswers("A");
 				System.out.println("A");
+				System.out.println(kysymys.giveKysymysArrayLength());
+				System.out.println(kysymys.giveVastausArrayLength());
 				//Press button >> stuff happens here
 			}
 		});
