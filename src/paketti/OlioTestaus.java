@@ -22,6 +22,8 @@ import javafx.stage.Stage;
 public class OlioTestaus extends Application{
 
 	KysymysMaker kysymys = new KysymysMaker();
+	Pisteet pisteet = new Pisteet();
+	int Points = 0;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -200,6 +202,8 @@ public class OlioTestaus extends Application{
 		kysymys.giveAnswers(lukija.nextLine());
 		if (kysymys.checkAnswer(1)) {
 			System.out.println("OIKEIN");
+			pisteet.AddScore(Points);
+			System.out.println("Pisteet: "+Points);
 		}else {
 			System.out.println("VÄÄRIN");
 		}
