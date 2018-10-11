@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 
 public class OlioTestaus extends Application{
 
+	KysymysMaker kysymys = new KysymysMaker();
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -48,17 +50,22 @@ public class OlioTestaus extends Application{
 		gameSceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		gridGame.add(gameSceneTitle, 0, 0, 2, 1);
 		
-		gridGame.setAlignment(Pos.CENTER);
+		gridGame.setAlignment(Pos.TOP_CENTER);
 		gridGame.setHgap(10);
 		gridGame.setVgap(10);
 		gridGame.setPadding(new Insets(25, 25, 25, 25));
 		
 		Button gameBtn = new Button("Game");
+		
+
+		
 		gameBtn.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
+
+				
 				primaryStage.setScene(sceneGame);
 				primaryStage.show();
 			}
@@ -85,6 +92,7 @@ public class OlioTestaus extends Application{
 				//Press button >> stuff happens here
 				primaryStage.setScene(sceneMap);
 				primaryStage.show();
+				visa();
 			}
 		});
 		
@@ -96,6 +104,65 @@ public class OlioTestaus extends Application{
 		primaryStage.setScene(sceneMain);
 		primaryStage.show();
 		
+		//Buttons for the game screen A/B/C/D
+		Button gameStart = new Button("Start Game");
+		Button gameChoiceA = new Button("A");
+		Button gameChoiceB = new Button("B");
+		Button gameChoiceC = new Button("C");
+		Button gameChoiceD = new Button("D");
+		
+		
+		gridGame.add(gameStart, 0, 0);
+		gridGame.add(gameChoiceA, 2, 2);
+		gridGame.add(gameChoiceB, 2, 3);
+		gridGame.add(gameChoiceD, 2, 4);
+		gridGame.add(gameChoiceC, 2, 5);
+		
+		gameStart.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				//Press button >> stuff happens here
+				kysymys.createQuestions();
+			}
+		});
+		
+		gameChoiceA.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				kysymys.giveAnswers("A");
+				System.out.println("A");
+				//Press button >> stuff happens here
+			}
+		});
+		gameChoiceB.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				kysymys.giveAnswers("B");
+				System.out.println("B");
+				//Press button >> stuff happens here
+			}
+		});
+		gameChoiceC.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				kysymys.giveAnswers("C");
+				System.out.println("C");
+				//Press button >> stuff happens here
+			}
+		});
+		gameChoiceD.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				kysymys.giveAnswers("D");
+				System.out.println("D");
+				//Press button >> stuff happens here
+			}
+		});
 		//MAIN MENU BUTTON
 		Button mainMenuBtnMap = new Button("Main Menu");
 		Button mainMenuBtnGame = new Button("Main Menu");
