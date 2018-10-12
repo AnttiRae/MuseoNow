@@ -22,6 +22,11 @@ import javafx.stage.Stage;
 public class OlioTestaus extends Application{
 
 	static KysymysMaker kysymys = new KysymysMaker();
+	Pisteet pisteLaskuri = new Pisteet();
+	KysymysMaker kysymys = new KysymysMaker();
+	int Points = pisteLaskuri.getScore();
+	
+	
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -30,6 +35,7 @@ public class OlioTestaus extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Museo Now!");
+
 
 		//MAIN MENU
 		GridPane gridMain = new GridPane();
@@ -134,38 +140,43 @@ public class OlioTestaus extends Application{
 
 			@Override
 			public void handle(ActionEvent event) {
+				//Press button >> stuff happens here
 				kysymys.giveAnswers("A");
 				System.out.println("A");
 				System.out.println(kysymys.giveKysymysArrayLength());
 				System.out.println(kysymys.giveVastausArrayLength());
-				//Press button >> stuff happens here
 			}
 		});
 		gameChoiceB.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
+				//Press button >> stuff happens here
 				kysymys.giveAnswers("B");
 				System.out.println("B");
-				//Press button >> stuff happens here
+
+				//if (vastaus === oikein) {
+				//pisteLaskuri.setScore(250);
+				//System.out.println(pisteLaskuri.getScore());
+				//}
 			}
 		});
 		gameChoiceC.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
+				//Press button >> stuff happens here
 				kysymys.giveAnswers("C");
 				System.out.println("C");
-				//Press button >> stuff happens here
 			}
 		});
 		gameChoiceD.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
+				//Press button >> stuff happens here
 				kysymys.giveAnswers("D");
 				System.out.println("D");
-				//Press button >> stuff happens here
 			}
 		});
 		//MAIN MENU BUTTON
@@ -178,6 +189,7 @@ public class OlioTestaus extends Application{
 			
 			@Override
 			public void handle(ActionEvent event) {
+				//Map screen main Menu button  event handler
 				primaryStage.setScene(sceneMain);
 				primaryStage.show();
 				
@@ -186,6 +198,7 @@ public class OlioTestaus extends Application{
 		mainMenuBtnGame.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
+			//Game screen main menu button event handler
 			public void handle(ActionEvent event) {
 				primaryStage.setScene(sceneMain);
 				primaryStage.show();
@@ -196,18 +209,21 @@ public class OlioTestaus extends Application{
 		
 	}
 	
-	public static void visa() {
+	public void visa() {
+        int KysymysNumero = 0;
         int kysymysArrayLenght = kysymys.giveKysymysArrayLength();
-        for (int i= 0; i > kysymysArrayLenght; i++){
-	        KysymysMaker kysymys = new KysymysMaker();
-	        kysymys.createQuestions();
-	        System.out.println(kysymys.showQuestion(i));
-	        System.out.println("\nVastaus:");
-	        //Scanner lukija = new Scanner(System.in);
-	        //kysymys.giveAnswers(lukija.nextLine());
-        if (kysymys.checkAnswer(i)) {
+        for (KysymysNumero=0; KysymysNumero>kysymysArrayLenght; KysymysNumero++){
+            KysymysMaker kysymys = new KysymysMaker();
+            kysymys.createQuestions();
+            System.out.println(kysymys.showQuestion(KysymysNumero));
+            System.out.println("\nVastaus:");
+            Scanner lukija = new Scanner(System.in);
+            kysymys.giveAnswers(lukija.nextLine());
+        if (kysymys.checkAnswer(KysymysNumero)) {
             System.out.println("Right");
-        } else {
+            pisteLaskuri.setScore(100);
+			System.out.println("Pisteet: "+pisteLaskuri.getScore());
+        }else {
             System.out.println("Wrong");
         }
         }
