@@ -24,6 +24,7 @@ public class OlioTestaus extends Application{
 	static KysymysMaker kysymys = new KysymysMaker();
 	Pisteet pisteLaskuri = new Pisteet();
 	int Points = pisteLaskuri.getScore();
+	String playerResponse;
 	
 	
 	
@@ -47,13 +48,13 @@ public class OlioTestaus extends Application{
 		sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		gridMain.add(sceneTitle, 0, 0, 2, 1);
 		
-		//GAME
-		Text t = new Text(10, 50, "this is A test");
-		t.setFont(new Font(20));
+
 		
+		
+		//GAME
 		GridPane gridGame = new GridPane();
 		Text gameSceneTitle = new Text("Game about stuff");
-		Scene sceneGame = new Scene(gridGame, 640, 800);
+		Scene sceneGame = new Scene(gridGame, 640, 300);
 		
 		gameSceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		gridGame.add(gameSceneTitle, 1, 1, 2, 1);
@@ -107,50 +108,65 @@ public class OlioTestaus extends Application{
 		gridMain.add(gameBtn, 1, 3);
 		gridMain.add(mapBtn, 0, 3);
 		
-		Scene sceneMain = new Scene (gridMain, 640, 800);
+		Scene sceneMain = new Scene (gridMain, 640, 300);
 		primaryStage.setScene(sceneMain);
 		primaryStage.show();
 		
 		//Buttons for the game screen A/B/C/D
-		Button gameStart = new Button("Start Game");
-		Button gameChoiceA = new Button("A");
-		Button gameChoiceB = new Button("B");
-		Button gameChoiceC = new Button("C");
-		Button gameChoiceD = new Button("D");
+		Button gameStartBtn = new Button("Start Game");
+		Button gameChoiceABtn = new Button("A");
+		Button gameChoiceBBtn = new Button("B");
+		Button gameChoiceCBtn = new Button("C");
+		Button gameChoiceDBtn = new Button("D");
 		
 		
-		gridGame.add(gameStart, 0, 0);
-		gridGame.add(gameChoiceA, 1, 4);
-		gridGame.add(gameChoiceB, 1, 5);
-		gridGame.add(gameChoiceD, 1, 6);
-		gridGame.add(gameChoiceC, 1, 7);
+		gridGame.add(gameStartBtn, 0, 0);
+		gridGame.add(gameChoiceABtn, 1, 4);
+		gridGame.add(gameChoiceBBtn, 1, 5);
+		gridGame.add(gameChoiceDBtn, 1, 6);
+		gridGame.add(gameChoiceCBtn, 1, 7);
 		
-		gameStart.setOnAction(new EventHandler<ActionEvent>() {
+		gameStartBtn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
-				kysymys.createQuestions();
+				if (kysymys.giveKysymysArrayLength() == 0 && kysymys.giveVastausArrayLength() == 0) {
+					//gameStartBtn.setDisable(true);
+					kysymys.createQuestions();
+				}
+					
+				Text questionText = new Text();
+				Text optionsText = new Text();
+				questionText.setFont(new Font(20));
+				optionsText.setFont(new Font(20));
+				System.out.println("kysmys:" + kysymys.showQuestion(0)); 
+				questionText.setText(kysymys.showQuestion(0));
+				optionsText.setText(kysymys.showOptions(0));
+				gridGame.add(questionText, 3, 5);
+				gridGame.add(optionsText, 3, 6);
+				//questionText.setVisible(false);
 				
 			}
 		});
 		
-		gameChoiceA.setOnAction(new EventHandler<ActionEvent>() {
+		gameChoiceABtn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
+				playerResponse = "A";
 				kysymys.giveAnswers("A");
 				System.out.println("A");
-				System.out.println(kysymys.giveKysymysArrayLength());
-				System.out.println(kysymys.giveVastausArrayLength());
+
 			}
 		});
-		gameChoiceB.setOnAction(new EventHandler<ActionEvent>() {
+		gameChoiceBBtn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
+				playerResponse = "B";
 				kysymys.giveAnswers("B");
 				System.out.println("B");
 
@@ -160,20 +176,22 @@ public class OlioTestaus extends Application{
 				//}
 			}
 		});
-		gameChoiceC.setOnAction(new EventHandler<ActionEvent>() {
+		gameChoiceCBtn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
+				playerResponse = "C";
 				kysymys.giveAnswers("C");
 				System.out.println("C");
 			}
 		});
-		gameChoiceD.setOnAction(new EventHandler<ActionEvent>() {
+		gameChoiceDBtn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
+				playerResponse = "D";
 				kysymys.giveAnswers("D");
 				System.out.println("D");
 			}
@@ -204,7 +222,6 @@ public class OlioTestaus extends Application{
 				
 			}
 		});
-		
 		
 	}
 	

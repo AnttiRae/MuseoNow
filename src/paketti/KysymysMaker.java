@@ -18,6 +18,7 @@ import java.util.Iterator;
 public class KysymysMaker {
 	private String[] kysymysArray = {};
 	private String[] vastausArray = {};
+	private String[] vaihtoehdotArray = {};
 	private String kayttajanVastaus;
 	
 	public KysymysMaker() {
@@ -41,19 +42,24 @@ public class KysymysMaker {
 				JSONObject innerObj = (JSONObject) i.next();
 				String kysymys = (String) innerObj.get("kysymys");
 				String vastaus = (String) innerObj.get("vastaus");
+				String vaihtoehdot = (String) innerObj.get("vaihtoehdot");
 				
 				//define new array
 				String[] newKysymysArray = new String[kysymysArray.length + 1];
 				String[] newVastausArray = new String[vastausArray.length + 1];
+				String[] newVaihtoehdotArray = new String[vaihtoehdotArray.length + 1];
 				for (int j = 0; j < kysymysArray.length; j++) {
 					newKysymysArray[j] = kysymysArray[j];
 					newVastausArray[j] = vastausArray[j];
+					newVaihtoehdotArray[j] = vaihtoehdotArray[j];
 				}
 				newKysymysArray[newKysymysArray.length-1] = kysymys;
 				newVastausArray[newVastausArray.length-1] = vastaus;
+				newVaihtoehdotArray[newVaihtoehdotArray.length-1] = vaihtoehdot;
 				
 				kysymysArray = newKysymysArray;
 				vastausArray = newVastausArray;
+				vaihtoehdotArray = newVaihtoehdotArray;
 			}
 			
 		
@@ -78,6 +84,9 @@ public class KysymysMaker {
 	
 	public String showQuestion(int i) {
 		return kysymysArray[i];
+	}
+	public String showOptions(int i) {
+		return vaihtoehdotArray[i];
 	}
 	public String giveAnswers(String a) {
 		kayttajanVastaus = a;
