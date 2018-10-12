@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 public class OlioTestaus extends Application{
 
-	KysymysMaker kysymys = new KysymysMaker();
+	static KysymysMaker kysymys = new KysymysMaker();
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -42,7 +42,10 @@ public class OlioTestaus extends Application{
 		sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		gridMain.add(sceneTitle, 0, 0, 2, 1);
 		
-		//GAME 
+		//GAME
+		Text t = new Text(10, 50, "this is A test");
+		t.setFont(new Font(20));
+		
 		GridPane gridGame = new GridPane();
 		Text gameSceneTitle = new Text("Game about stuff");
 		Scene sceneGame = new Scene(gridGame, 640, 800);
@@ -112,10 +115,10 @@ public class OlioTestaus extends Application{
 		
 		
 		gridGame.add(gameStart, 0, 0);
-		gridGame.add(gameChoiceA, 2, 4);
-		gridGame.add(gameChoiceB, 2, 5);
-		gridGame.add(gameChoiceD, 2, 6);
-		gridGame.add(gameChoiceC, 2, 7);
+		gridGame.add(gameChoiceA, 1, 4);
+		gridGame.add(gameChoiceB, 1, 5);
+		gridGame.add(gameChoiceD, 1, 6);
+		gridGame.add(gameChoiceC, 1, 7);
 		
 		gameStart.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -123,6 +126,7 @@ public class OlioTestaus extends Application{
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
 				kysymys.createQuestions();
+				
 			}
 		});
 		
@@ -189,19 +193,23 @@ public class OlioTestaus extends Application{
 			}
 		});
 		
+		
 	}
 	
-	public void visa() {
-		KysymysMaker kysymys = new KysymysMaker();
-		kysymys.createQuestions();
-		System.out.println(kysymys.showQuestion(1));
-		System.out.println("\nVastaus:");
-		Scanner lukija = new Scanner(System.in);
-		kysymys.giveAnswers(lukija.nextLine());
-		if (kysymys.checkAnswer(1)) {
-			System.out.println("OIKEIN");
-		}else {
-			System.out.println("VÄÄRIN");
-		}
-	}
+	public static void visa() {
+        int kysymysArrayLenght = kysymys.giveKysymysArrayLength();
+        for (int i= 0; i > kysymysArrayLenght; i++){
+	        KysymysMaker kysymys = new KysymysMaker();
+	        kysymys.createQuestions();
+	        System.out.println(kysymys.showQuestion(i));
+	        System.out.println("\nVastaus:");
+	        //Scanner lukija = new Scanner(System.in);
+	        //kysymys.giveAnswers(lukija.nextLine());
+        if (kysymys.checkAnswer(i)) {
+            System.out.println("Right");
+        } else {
+            System.out.println("Wrong");
+        }
+        }
+    }
 }
