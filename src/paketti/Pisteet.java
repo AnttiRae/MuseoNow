@@ -1,16 +1,13 @@
 package paketti;
 
 public class Pisteet {
-	private int Points;
+	private int Points = 0;
 	
-	public Pisteet() {
-		
-	}
-	public void AddScore(int Points) {
-		Points = Points + 100;
+	public void setScore(int a) {
+		Points = a + Points;
 	}
 	
-	public int getNewPoints() {
+	public int getScore() {
 		return Points;
 	}
 
