@@ -23,7 +23,6 @@ public class OlioTestaus extends Application{
 
 	static KysymysMaker kysymys = new KysymysMaker();
 	Pisteet pisteLaskuri = new Pisteet();
-	KysymysMaker kysymys = new KysymysMaker();
 	int Points = pisteLaskuri.getScore();
 	
 	
@@ -213,7 +212,6 @@ public class OlioTestaus extends Application{
         int KysymysNumero = 0;
         int kysymysArrayLenght = kysymys.giveKysymysArrayLength();
         for (KysymysNumero=0; KysymysNumero>kysymysArrayLenght; KysymysNumero++){
-            KysymysMaker kysymys = new KysymysMaker();
             kysymys.createQuestions();
             System.out.println(kysymys.showQuestion(KysymysNumero));
             System.out.println("\nVastaus:");
