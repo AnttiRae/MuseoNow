@@ -177,6 +177,7 @@ public class OlioTestaus extends Application{
 				kysymys.giveAnswers("A");
 				if (kysymys.checkAnswer(currentQuestion)) {
 					System.out.println("correct!");
+					pisteLaskuri.setScore(100);
 				}else {
 					System.out.println("wrong!");
 				}
@@ -187,7 +188,7 @@ public class OlioTestaus extends Application{
 					optionsText.setText(kysymys.showOptions(currentQuestion));
 				}else {
 					questionText.setText("Game Over!");
-					optionsText.setText("Points: 500000");
+					optionsText.setText("Points: "+pisteLaskuri.getScore());
 					gameChoiceABtn.setDisable(true);
 					gameChoiceBBtn.setDisable(true);
 					gameChoiceCBtn.setDisable(true);
@@ -206,6 +207,7 @@ public class OlioTestaus extends Application{
 				
 				if (kysymys.checkAnswer(currentQuestion)) {
 					System.out.println("correct!");
+					pisteLaskuri.setScore(100);
 				}else {
 					System.out.println("wrong!");
 				}
@@ -216,7 +218,7 @@ public class OlioTestaus extends Application{
 					optionsText.setText(kysymys.showOptions(currentQuestion));
 				}else {
 					questionText.setText("Game Over!");
-					optionsText.setText("Points: 500000");
+					optionsText.setText("Points: "+pisteLaskuri.getScore());
 					gameChoiceABtn.setDisable(true);
 					gameChoiceBBtn.setDisable(true);
 					gameChoiceCBtn.setDisable(true);
@@ -236,6 +238,7 @@ public class OlioTestaus extends Application{
 				
 				if (kysymys.checkAnswer(currentQuestion)) {
 					System.out.println("correct!");
+					pisteLaskuri.setScore(100);
 				}else {
 					System.out.println("wrong!");
 				}
@@ -246,7 +249,7 @@ public class OlioTestaus extends Application{
 					optionsText.setText(kysymys.showOptions(currentQuestion));
 				}else {
 					questionText.setText("Game Over!");
-					optionsText.setText("Points: 500000");
+					optionsText.setText("Points: "+pisteLaskuri.getScore());
 					gameChoiceABtn.setDisable(true);
 					gameChoiceBBtn.setDisable(true);
 					gameChoiceCBtn.setDisable(true);
@@ -265,6 +268,7 @@ public class OlioTestaus extends Application{
 				
 				if (kysymys.checkAnswer(currentQuestion)) {
 					System.out.println("correct!");
+					pisteLaskuri.setScore(100);
 				}else {
 					System.out.println("wrong!");
 				}
@@ -275,7 +279,7 @@ public class OlioTestaus extends Application{
 					optionsText.setText(kysymys.showOptions(currentQuestion));
 				}else {
 					questionText.setText("Game Over!");
-					optionsText.setText("Points: 500000");
+					optionsText.setText("Points: "+pisteLaskuri.getScore());
 					gameChoiceABtn.setDisable(true);
 					gameChoiceBBtn.setDisable(true);
 					gameChoiceCBtn.setDisable(true);
@@ -323,8 +327,6 @@ public class OlioTestaus extends Application{
             kysymys.giveAnswers(lukija.nextLine());
         if (kysymys.checkAnswer(KysymysNumero)) {
             System.out.println("Right");
-            pisteLaskuri.setScore(100);
-			System.out.println("Pisteet: "+pisteLaskuri.getScore());
         }else {
             System.out.println("Wrong");
         }
