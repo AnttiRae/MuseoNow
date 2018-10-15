@@ -25,6 +25,7 @@ public class OlioTestaus extends Application{
 	Pisteet pisteLaskuri = new Pisteet();
 	int Points = pisteLaskuri.getScore();
 	String playerResponse;
+	int currentQuestion = 0;
 	
 	
 	
@@ -54,7 +55,7 @@ public class OlioTestaus extends Application{
 		//GAME
 		GridPane gridGame = new GridPane();
 		Text gameSceneTitle = new Text("Game about stuff");
-		Scene sceneGame = new Scene(gridGame, 640, 300);
+		Scene sceneGame = new Scene(gridGame, 800, 300);
 		
 		gameSceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		gridGame.add(gameSceneTitle, 1, 1, 2, 1);
@@ -82,7 +83,7 @@ public class OlioTestaus extends Application{
 		
 		GridPane gridMap = new GridPane();
 		Text mapSceneTitle = new Text("Map is under construction");
-		Scene sceneMap = new Scene(gridMap, 640	,800);
+		Scene sceneMap = new Scene(gridMap, 800	,800);
 		
 		//MAP
 		gridMap.setAlignment(Pos.CENTER);
@@ -108,7 +109,7 @@ public class OlioTestaus extends Application{
 		gridMain.add(gameBtn, 1, 3);
 		gridMain.add(mapBtn, 0, 3);
 		
-		Scene sceneMain = new Scene (gridMain, 640, 300);
+		Scene sceneMain = new Scene (gridMain, 800, 300);
 		primaryStage.setScene(sceneMain);
 		primaryStage.show();
 		
@@ -123,28 +124,44 @@ public class OlioTestaus extends Application{
 		gridGame.add(gameStartBtn, 0, 0);
 		gridGame.add(gameChoiceABtn, 1, 4);
 		gridGame.add(gameChoiceBBtn, 1, 5);
-		gridGame.add(gameChoiceDBtn, 1, 6);
-		gridGame.add(gameChoiceCBtn, 1, 7);
+		gridGame.add(gameChoiceCBtn, 1, 6);
+		gridGame.add(gameChoiceDBtn, 1, 7);
 		
+		if (kysymys.giveKysymysArrayLength() == 0 && kysymys.giveVastausArrayLength() == 0) {
+			gameChoiceABtn.setDisable(true);
+			gameChoiceBBtn.setDisable(true);
+			gameChoiceCBtn.setDisable(true);
+			gameChoiceDBtn.setDisable(true);
+		}
+		
+		Text questionText = new Text();
+		Text optionsText = new Text();
+
 		gameStartBtn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
 				if (kysymys.giveKysymysArrayLength() == 0 && kysymys.giveVastausArrayLength() == 0) {
+					
+					gameChoiceABtn.setDisable(false);
+					gameChoiceBBtn.setDisable(false);
+					gameChoiceCBtn.setDisable(false);
+					gameChoiceDBtn.setDisable(false);
 					//gameStartBtn.setDisable(true);
 					kysymys.createQuestions();
+
+					questionText.setFont(new Font(20));
+					optionsText.setFont(new Font(20));
+					System.out.println("kysmys:" + kysymys.showQuestion(currentQuestion)); 
+					questionText.setText(kysymys.showQuestion(currentQuestion));
+					optionsText.setText(kysymys.showOptions(currentQuestion));
+					gridGame.add(questionText, 3, 5);
+					gridGame.add(optionsText, 3, 6);
 				}
+				System.out.println(currentQuestion);
+				System.out.println(kysymys.giveKysymysArrayLength());
 					
-				Text questionText = new Text();
-				Text optionsText = new Text();
-				questionText.setFont(new Font(20));
-				optionsText.setFont(new Font(20));
-				System.out.println("kysmys:" + kysymys.showQuestion(0)); 
-				questionText.setText(kysymys.showQuestion(0));
-				optionsText.setText(kysymys.showOptions(0));
-				gridGame.add(questionText, 3, 5);
-				gridGame.add(optionsText, 3, 6);
 				//questionText.setVisible(false);
 				
 			}
@@ -155,10 +172,27 @@ public class OlioTestaus extends Application{
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
+				System.out.println("A");
 				playerResponse = "A";
 				kysymys.giveAnswers("A");
-				System.out.println("A");
-
+				if (kysymys.checkAnswer(currentQuestion)) {
+					System.out.println("correct!");
+				}else {
+					System.out.println("wrong!");
+				}
+				if (currentQuestion < kysymys.giveKysymysArrayLength() - 1) {
+					currentQuestion++;
+					System.out.println("kysmys:" + kysymys.showQuestion(currentQuestion)); 
+					questionText.setText(kysymys.showQuestion(currentQuestion));
+					optionsText.setText(kysymys.showOptions(currentQuestion));
+				}else {
+					questionText.setText("Game Over!");
+					optionsText.setText("Points: 500000");
+					gameChoiceABtn.setDisable(true);
+					gameChoiceBBtn.setDisable(true);
+					gameChoiceCBtn.setDisable(true);
+					gameChoiceDBtn.setDisable(true);
+				}
 			}
 		});
 		gameChoiceBBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -169,11 +203,26 @@ public class OlioTestaus extends Application{
 				playerResponse = "B";
 				kysymys.giveAnswers("B");
 				System.out.println("B");
-
-				//if (vastaus === oikein) {
-				//pisteLaskuri.setScore(250);
-				//System.out.println(pisteLaskuri.getScore());
-				//}
+				
+				if (kysymys.checkAnswer(currentQuestion)) {
+					System.out.println("correct!");
+				}else {
+					System.out.println("wrong!");
+				}
+				if (currentQuestion < kysymys.giveKysymysArrayLength() - 1) {
+					currentQuestion++;
+					System.out.println("kysmys:" + kysymys.showQuestion(currentQuestion)); 
+					questionText.setText(kysymys.showQuestion(currentQuestion));
+					optionsText.setText(kysymys.showOptions(currentQuestion));
+				}else {
+					questionText.setText("Game Over!");
+					optionsText.setText("Points: 500000");
+					gameChoiceABtn.setDisable(true);
+					gameChoiceBBtn.setDisable(true);
+					gameChoiceCBtn.setDisable(true);
+					gameChoiceDBtn.setDisable(true);
+				}
+				
 			}
 		});
 		gameChoiceCBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -184,6 +233,25 @@ public class OlioTestaus extends Application{
 				playerResponse = "C";
 				kysymys.giveAnswers("C");
 				System.out.println("C");
+				
+				if (kysymys.checkAnswer(currentQuestion)) {
+					System.out.println("correct!");
+				}else {
+					System.out.println("wrong!");
+				}
+				if (currentQuestion < kysymys.giveKysymysArrayLength() - 1) {
+					currentQuestion++;
+					System.out.println("kysmys:" + kysymys.showQuestion(currentQuestion)); 
+					questionText.setText(kysymys.showQuestion(currentQuestion));
+					optionsText.setText(kysymys.showOptions(currentQuestion));
+				}else {
+					questionText.setText("Game Over!");
+					optionsText.setText("Points: 500000");
+					gameChoiceABtn.setDisable(true);
+					gameChoiceBBtn.setDisable(true);
+					gameChoiceCBtn.setDisable(true);
+					gameChoiceDBtn.setDisable(true);
+				}
 			}
 		});
 		gameChoiceDBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -194,6 +262,25 @@ public class OlioTestaus extends Application{
 				playerResponse = "D";
 				kysymys.giveAnswers("D");
 				System.out.println("D");
+				
+				if (kysymys.checkAnswer(currentQuestion)) {
+					System.out.println("correct!");
+				}else {
+					System.out.println("wrong!");
+				}
+				if (currentQuestion < kysymys.giveKysymysArrayLength() - 1) {
+					currentQuestion++;
+					System.out.println("kysmys:" + kysymys.showQuestion(currentQuestion)); 
+					questionText.setText(kysymys.showQuestion(currentQuestion));
+					optionsText.setText(kysymys.showOptions(currentQuestion));
+				}else {
+					questionText.setText("Game Over!");
+					optionsText.setText("Points: 500000");
+					gameChoiceABtn.setDisable(true);
+					gameChoiceBBtn.setDisable(true);
+					gameChoiceCBtn.setDisable(true);
+					gameChoiceDBtn.setDisable(true);
+				}
 			}
 		});
 		//MAIN MENU BUTTON
@@ -243,4 +330,11 @@ public class OlioTestaus extends Application{
         }
         }
     }
+//	public void changeGameText(int questionIndex object ) {
+//		System.out.println("kysmys:" + kysymys.showQuestion(questionIndex)); 
+//		questionText.setText(kysymys.showQuestion(questionIndex));
+//		optionsText.setText(kysymys.showOptions(questionIndex));
+//		gridGame.add(questionText, 3, 5);
+//		gridGame.add(optionsText, 3, 6);
+//	}
 }
