@@ -1,6 +1,6 @@
-package paketti;
+package museoNow;
 
-public class Pisteet {
+public class ScoreHandler {
 	private int Points = 0;
 	
 	public void setScore(int a) {

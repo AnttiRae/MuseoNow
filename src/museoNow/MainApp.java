@@ -1,4 +1,4 @@
-package paketti;
+package museoNow;
 
 import javafx.geometry.Insets;
 import java.util.*;
@@ -19,12 +19,11 @@ import javafx.stage.Stage;
 
 
 
-public class OlioTestaus extends Application{
+public class MainApp extends Application{
 
-	static KysymysMaker kysymys = new KysymysMaker();
-	Pisteet pisteLaskuri = new Pisteet();
-	int Points = pisteLaskuri.getScore();
-	String playerResponse;
+	static QuestionMaker question = new QuestionMaker();
+	ScoreHandler scoreHandler = new ScoreHandler();
+	int Points = scoreHandler.getScore();
 	int currentQuestion = 0;
 	
 	
@@ -49,9 +48,6 @@ public class OlioTestaus extends Application{
 		sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		gridMain.add(sceneTitle, 0, 0, 2, 1);
 		
-
-		
-		
 		//GAME
 		GridPane gridGame = new GridPane();
 		Text gameSceneTitle = new Text("Game about stuff");
@@ -67,15 +63,11 @@ public class OlioTestaus extends Application{
 		
 		Button gameBtn = new Button("Game");
 		
-
-		
 		gameBtn.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
-
-				
 				primaryStage.setScene(sceneGame);
 				primaryStage.show();
 			}
@@ -111,6 +103,15 @@ public class OlioTestaus extends Application{
 		
 		Scene sceneMain = new Scene (gridMain, 800, 300);
 		primaryStage.setScene(sceneMain);
+		
+		//add stylesheets to all scenes
+		sceneMain.getStylesheets().add
+		 (MainApp.class.getResource("stylesheet.css").toExternalForm());
+		sceneMap.getStylesheets().add
+		 (MainApp.class.getResource("stylesheet.css").toExternalForm());
+		sceneGame.getStylesheets().add
+		 (MainApp.class.getResource("stylesheet.css").toExternalForm());
+		
 		primaryStage.show();
 		
 		//Buttons for the game screen A/B/C/D
@@ -120,14 +121,14 @@ public class OlioTestaus extends Application{
 		Button gameChoiceCBtn = new Button("C");
 		Button gameChoiceDBtn = new Button("D");
 		
-		
 		gridGame.add(gameStartBtn, 0, 0);
 		gridGame.add(gameChoiceABtn, 1, 4);
 		gridGame.add(gameChoiceBBtn, 1, 5);
 		gridGame.add(gameChoiceCBtn, 1, 6);
 		gridGame.add(gameChoiceDBtn, 1, 7);
 		
-		if (kysymys.giveKysymysArrayLength() == 0 && kysymys.giveVastausArrayLength() == 0) {
+		if (question.giveQuestionArrayLength() == 0 && question.giveAnswerArrayLength() == 0) {
+			//better way to do this?
 			gameChoiceABtn.setDisable(true);
 			gameChoiceBBtn.setDisable(true);
 			gameChoiceCBtn.setDisable(true);
@@ -142,53 +143,46 @@ public class OlioTestaus extends Application{
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
-				if (kysymys.giveKysymysArrayLength() == 0 && kysymys.giveVastausArrayLength() == 0) {
+				if (question.giveQuestionArrayLength() == 0 && question.giveAnswerArrayLength() == 0) {
 					
 					gameChoiceABtn.setDisable(false);
 					gameChoiceBBtn.setDisable(false);
 					gameChoiceCBtn.setDisable(false);
 					gameChoiceDBtn.setDisable(false);
-					//gameStartBtn.setDisable(true);
-					kysymys.createQuestions();
+					//make some questions
+					question.createQuestions();
 
 					questionText.setFont(new Font(20));
 					optionsText.setFont(new Font(20));
-					System.out.println("kysmys:" + kysymys.showQuestion(currentQuestion)); 
-					questionText.setText(kysymys.showQuestion(currentQuestion));
-					optionsText.setText(kysymys.showOptions(currentQuestion));
+					System.out.println("kysmys:" + question.showQuestion(currentQuestion)); 
+					questionText.setText(question.showQuestion(currentQuestion));
+					optionsText.setText(question.showOptions(currentQuestion));
 					gridGame.add(questionText, 3, 5);
 					gridGame.add(optionsText, 3, 6);
 				}
-				System.out.println(currentQuestion);
-				System.out.println(kysymys.giveKysymysArrayLength());
-					
-				//questionText.setVisible(false);
-				
 			}
 		});
-		
 		gameChoiceABtn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
 				System.out.println("A");
-				playerResponse = "A";
-				kysymys.giveAnswers("A");
-				if (kysymys.checkAnswer(currentQuestion)) {
+				question.giveAnswers("A");
+				if (question.checkAnswer(currentQuestion)) {
 					System.out.println("correct!");
-					pisteLaskuri.setScore(100);
+					scoreHandler.setScore(100);
 				}else {
 					System.out.println("wrong!");
 				}
-				if (currentQuestion < kysymys.giveKysymysArrayLength() - 1) {
+				if (currentQuestion < question.giveQuestionArrayLength() - 1) {
 					currentQuestion++;
-					System.out.println("kysmys:" + kysymys.showQuestion(currentQuestion)); 
-					questionText.setText(kysymys.showQuestion(currentQuestion));
-					optionsText.setText(kysymys.showOptions(currentQuestion));
+					System.out.println("kysmys:" + question.showQuestion(currentQuestion)); 
+					questionText.setText(question.showQuestion(currentQuestion));
+					optionsText.setText(question.showOptions(currentQuestion));
 				}else {
 					questionText.setText("Game Over!");
-					optionsText.setText("Points: "+pisteLaskuri.getScore());
+					optionsText.setText("Points: "+scoreHandler.getScore());
 					gameChoiceABtn.setDisable(true);
 					gameChoiceBBtn.setDisable(true);
 					gameChoiceCBtn.setDisable(true);
@@ -201,24 +195,23 @@ public class OlioTestaus extends Application{
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
-				playerResponse = "B";
-				kysymys.giveAnswers("B");
+				question.giveAnswers("B");
 				System.out.println("B");
 				
-				if (kysymys.checkAnswer(currentQuestion)) {
+				if (question.checkAnswer(currentQuestion)) {
 					System.out.println("correct!");
-					pisteLaskuri.setScore(100);
+					scoreHandler.setScore(100);
 				}else {
 					System.out.println("wrong!");
 				}
-				if (currentQuestion < kysymys.giveKysymysArrayLength() - 1) {
+				if (currentQuestion < question.giveQuestionArrayLength() - 1) {
 					currentQuestion++;
-					System.out.println("kysmys:" + kysymys.showQuestion(currentQuestion)); 
-					questionText.setText(kysymys.showQuestion(currentQuestion));
-					optionsText.setText(kysymys.showOptions(currentQuestion));
+					System.out.println("kysmys:" + question.showQuestion(currentQuestion)); 
+					questionText.setText(question.showQuestion(currentQuestion));
+					optionsText.setText(question.showOptions(currentQuestion));
 				}else {
 					questionText.setText("Game Over!");
-					optionsText.setText("Points: "+pisteLaskuri.getScore());
+					optionsText.setText("Points: "+scoreHandler.getScore());
 					gameChoiceABtn.setDisable(true);
 					gameChoiceBBtn.setDisable(true);
 					gameChoiceCBtn.setDisable(true);
@@ -232,24 +225,23 @@ public class OlioTestaus extends Application{
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
-				playerResponse = "C";
-				kysymys.giveAnswers("C");
+				question.giveAnswers("C");
 				System.out.println("C");
 				
-				if (kysymys.checkAnswer(currentQuestion)) {
+				if (question.checkAnswer(currentQuestion)) {
 					System.out.println("correct!");
-					pisteLaskuri.setScore(100);
+					scoreHandler.setScore(100);
 				}else {
 					System.out.println("wrong!");
 				}
-				if (currentQuestion < kysymys.giveKysymysArrayLength() - 1) {
+				if (currentQuestion < question.giveQuestionArrayLength() - 1) {
 					currentQuestion++;
-					System.out.println("kysmys:" + kysymys.showQuestion(currentQuestion)); 
-					questionText.setText(kysymys.showQuestion(currentQuestion));
-					optionsText.setText(kysymys.showOptions(currentQuestion));
+					System.out.println("kysmys:" + question.showQuestion(currentQuestion)); 
+					questionText.setText(question.showQuestion(currentQuestion));
+					optionsText.setText(question.showOptions(currentQuestion));
 				}else {
 					questionText.setText("Game Over!");
-					optionsText.setText("Points: "+pisteLaskuri.getScore());
+					optionsText.setText("Points: "+scoreHandler.getScore());
 					gameChoiceABtn.setDisable(true);
 					gameChoiceBBtn.setDisable(true);
 					gameChoiceCBtn.setDisable(true);
@@ -262,24 +254,23 @@ public class OlioTestaus extends Application{
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
-				playerResponse = "D";
-				kysymys.giveAnswers("D");
+				question.giveAnswers("D");
 				System.out.println("D");
 				
-				if (kysymys.checkAnswer(currentQuestion)) {
+				if (question.checkAnswer(currentQuestion)) {
 					System.out.println("correct!");
-					pisteLaskuri.setScore(100);
+					scoreHandler.setScore(100);
 				}else {
 					System.out.println("wrong!");
 				}
-				if (currentQuestion < kysymys.giveKysymysArrayLength() - 1) {
+				if (currentQuestion < question.giveQuestionArrayLength() - 1) {
 					currentQuestion++;
-					System.out.println("kysmys:" + kysymys.showQuestion(currentQuestion)); 
-					questionText.setText(kysymys.showQuestion(currentQuestion));
-					optionsText.setText(kysymys.showOptions(currentQuestion));
+					System.out.println("kysmys:" + question.showQuestion(currentQuestion)); 
+					questionText.setText(question.showQuestion(currentQuestion));
+					optionsText.setText(question.showOptions(currentQuestion));
 				}else {
 					questionText.setText("Game Over!");
-					optionsText.setText("Points: "+pisteLaskuri.getScore());
+					optionsText.setText("Points: "+scoreHandler.getScore());
 					gameChoiceABtn.setDisable(true);
 					gameChoiceBBtn.setDisable(true);
 					gameChoiceCBtn.setDisable(true);
@@ -310,33 +301,8 @@ public class OlioTestaus extends Application{
 			public void handle(ActionEvent event) {
 				primaryStage.setScene(sceneMain);
 				primaryStage.show();
-				
 			}
 		});
 		
 	}
-	
-	public void visa() {
-        int KysymysNumero = 0;
-        int kysymysArrayLenght = kysymys.giveKysymysArrayLength();
-        for (KysymysNumero=0; KysymysNumero>kysymysArrayLenght; KysymysNumero++){
-            kysymys.createQuestions();
-            System.out.println(kysymys.showQuestion(KysymysNumero));
-            System.out.println("\nVastaus:");
-            Scanner lukija = new Scanner(System.in);
-            kysymys.giveAnswers(lukija.nextLine());
-        if (kysymys.checkAnswer(KysymysNumero)) {
-            System.out.println("Right");
-        }else {
-            System.out.println("Wrong");
-        }
-        }
-    }
-//	public void changeGameText(int questionIndex object ) {
-//		System.out.println("kysmys:" + kysymys.showQuestion(questionIndex)); 
-//		questionText.setText(kysymys.showQuestion(questionIndex));
-//		optionsText.setText(kysymys.showOptions(questionIndex));
-//		gridGame.add(questionText, 3, 5);
-//		gridGame.add(optionsText, 3, 6);
-//	}
 }

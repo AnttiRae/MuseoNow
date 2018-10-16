@@ -1,4 +1,4 @@
-package paketti;
+package museoNow;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -15,13 +15,13 @@ import java.util.Iterator;
 //import java.util.Arrays;
 
 
-public class KysymysMaker {
-	private String[] kysymysArray = {};
-	private String[] vastausArray = {};
-	private String[] vaihtoehdotArray = {};
-	private String kayttajanVastaus;
+public class QuestionMaker {
+	private String[] questionArray = {};
+	private String[] answerArray = {};
+	private String[] optionsArray = {};
+	private String userAnswer;
 	
-	public KysymysMaker() {
+	public QuestionMaker() {
 
 	}
 	public void createQuestions() {
@@ -44,22 +44,25 @@ public class KysymysMaker {
 				String vastaus = (String) innerObj.get("vastaus");
 				String vaihtoehdot = (String) innerObj.get("vaihtoehdot");
 				
-				//define new array
-				String[] newKysymysArray = new String[kysymysArray.length + 1];
-				String[] newVastausArray = new String[vastausArray.length + 1];
-				String[] newVaihtoehdotArray = new String[vaihtoehdotArray.length + 1];
-				for (int j = 0; j < kysymysArray.length; j++) {
-					newKysymysArray[j] = kysymysArray[j];
-					newVastausArray[j] = vastausArray[j];
-					newVaihtoehdotArray[j] = vaihtoehdotArray[j];
+				//define new arrays
+				String[] newKysymysArray = new String[questionArray.length + 1];
+				String[] newVastausArray = new String[answerArray.length + 1];
+				String[] newVaihtoehdotArray = new String[optionsArray.length + 1];
+				for (int j = 0; j < questionArray.length; j++) {
+					//copy old arrays to new ones
+					newKysymysArray[j] = questionArray[j];
+					newVastausArray[j] = answerArray[j];
+					newVaihtoehdotArray[j] = optionsArray[j];
 				}
+				//add new value to new arrays
 				newKysymysArray[newKysymysArray.length-1] = kysymys;
 				newVastausArray[newVastausArray.length-1] = vastaus;
 				newVaihtoehdotArray[newVaihtoehdotArray.length-1] = vaihtoehdot;
 				
-				kysymysArray = newKysymysArray;
-				vastausArray = newVastausArray;
-				vaihtoehdotArray = newVaihtoehdotArray;
+				//new arrays are now old arrays :(
+				questionArray = newKysymysArray;
+				answerArray = newVastausArray;
+				optionsArray = newVaihtoehdotArray;
 			}
 			
 		
@@ -73,27 +76,27 @@ public class KysymysMaker {
 			ex.printStackTrace();
 		}
 	}
-	public int giveKysymysArrayLength() {
-		return kysymysArray.length;
+	public int giveQuestionArrayLength() {
+		return questionArray.length;
 	}
 	
-	public int giveVastausArrayLength() {
-		return vastausArray.length;
+	public int giveAnswerArrayLength() {
+		return answerArray.length;
 	}
 	
 	
 	public String showQuestion(int i) {
-		return kysymysArray[i];
+		return questionArray[i];
 	}
 	public String showOptions(int i) {
-		return vaihtoehdotArray[i];
+		return optionsArray[i];
 	}
 	public String giveAnswers(String a) {
-		kayttajanVastaus = a;
+		userAnswer = a;
 		return a;
 	}
 	public boolean checkAnswer(int i) {
-		if (vastausArray[i].equals(kayttajanVastaus)) {
+		if (answerArray[i].equals(userAnswer)) {
 			return true;
 		}
 		else {
