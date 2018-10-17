@@ -123,17 +123,37 @@ public class MainApp extends Application{
 		gridGame.add(gameChoiceDBtn, 1, 7);
 		
 		if (question.giveQuestionArrayLength() == 0 && question.giveAnswerArrayLength() == 0) {
-			//better way to do this?
+			//make a function out of this 
 			gameChoiceABtn.setDisable(true);
 			gameChoiceBBtn.setDisable(true);
 			gameChoiceCBtn.setDisable(true);
 			gameChoiceDBtn.setDisable(true);
+			//
 		}
 		
 		Text questionText = new Text();
 		Text optionsText = new Text();
+		gridGame.add(questionText, 3, 5);
+		gridGame.add(optionsText, 3, 6);
 		optionsText.setId("text");
 		questionText.setId("text");
+		
+		gameResetBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				question.destroyQuestions();
+				currentQuestion = 0;
+				scoreHandler.resetScore();
+				questionText.setText("Game reset!");
+				optionsText.setText("Press start game for a new game");
+				
+				gameChoiceABtn.setDisable(true);
+				gameChoiceBBtn.setDisable(true);
+				gameChoiceCBtn.setDisable(true);
+				gameChoiceDBtn.setDisable(true);
+			}
+		});
 		
 		gameStartBtn.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -154,8 +174,6 @@ public class MainApp extends Application{
 					System.out.println("kysmys:" + question.showQuestion(currentQuestion)); 
 					questionText.setText(question.showQuestion(currentQuestion));
 					optionsText.setText(question.showOptions(currentQuestion));
-					gridGame.add(questionText, 3, 5);
-					gridGame.add(optionsText, 3, 6);
 				}
 			}
 		});
@@ -324,4 +342,5 @@ public class MainApp extends Application{
 		(MainApp.class.getResource("stylesheet.css").toExternalForm());
 		
 	}
+	
 }

@@ -10,5 +10,8 @@ public class ScoreHandler {
 	public int getScore() {
 		return Points;
 	}
+	public int resetScore() {
+		return Points = 0;
+	}
 
 }

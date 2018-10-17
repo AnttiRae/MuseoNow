@@ -10,6 +10,7 @@ import org.json.simple.parser.ParseException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Iterator;
 //import java.util.ArrayList;
 //import java.util.Arrays;
@@ -75,6 +76,15 @@ public class QuestionMaker {
 		} catch (NullPointerException ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	public void destroyQuestions() {
+		// make new empty array 
+		String[] emptyArray = {};
+		// old arrays are now empty 
+		questionArray = emptyArray;
+		answerArray = emptyArray;
+		optionsArray = emptyArray;
 	}
 	public int giveQuestionArrayLength() {
 		return questionArray.length;
