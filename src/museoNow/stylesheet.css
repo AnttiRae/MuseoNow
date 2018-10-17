@@ -1,9 +1,10 @@
 .root {
     -fx-background-repeat: no-repeat;
     -fx-background-image: url("background.jpg");
-    -fx-text-fill: #D7BEA8;
-
-    }
+}
+#text {
+    -fx-fill: white;
+}
 #glass-grey {
     -fx-background-color: 
         linear-gradient(#FC9C5D 50%, #DDAD82),

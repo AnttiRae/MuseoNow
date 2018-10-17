@@ -23,10 +23,7 @@ public class MainApp extends Application{
 
 	static QuestionMaker question = new QuestionMaker();
 	ScoreHandler scoreHandler = new ScoreHandler();
-	int Points = scoreHandler.getScore();
 	int currentQuestion = 0;
-	
-	
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -45,12 +42,14 @@ public class MainApp extends Application{
 		gridMain.setPadding(new Insets(25, 25, 25, 25));
 		
 		Text sceneTitle = new Text("Welcome to Museo Now!");
+		sceneTitle.setId("text");
 		sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		gridMain.add(sceneTitle, 0, 0, 2, 1);
 		
 		//GAME
 		GridPane gridGame = new GridPane();
 		Text gameSceneTitle = new Text("Game about stuff");
+		gameSceneTitle.setId("text");
 		Scene sceneGame = new Scene(gridGame, 800, 300);
 		
 		gameSceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -75,6 +74,7 @@ public class MainApp extends Application{
 		
 		GridPane gridMap = new GridPane();
 		Text mapSceneTitle = new Text("Map is under construction");
+		mapSceneTitle.setId("text");
 		Scene sceneMap = new Scene(gridMap, 800	,800);
 		
 		//MAP
@@ -132,7 +132,9 @@ public class MainApp extends Application{
 		
 		Text questionText = new Text();
 		Text optionsText = new Text();
-
+		optionsText.setId("text");
+		questionText.setId("text");
+		
 		gameStartBtn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
