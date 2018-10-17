@@ -103,25 +103,20 @@ public class MainApp extends Application{
 		
 		Scene sceneMain = new Scene (gridMain, 800, 300);
 		primaryStage.setScene(sceneMain);
-		
-		//add stylesheets to all scenes
-		sceneMain.getStylesheets().add
-		 (MainApp.class.getResource("stylesheet.css").toExternalForm());
-		sceneMap.getStylesheets().add
-		 (MainApp.class.getResource("stylesheet.css").toExternalForm());
-		sceneGame.getStylesheets().add
-		 (MainApp.class.getResource("stylesheet.css").toExternalForm());
-		
-		primaryStage.show();
-		
+
 		//Buttons for the game screen A/B/C/D
+		
+		Button gameResetBtn = new Button("Reset Game");
 		Button gameStartBtn = new Button("Start Game");
 		Button gameChoiceABtn = new Button("A");
 		Button gameChoiceBBtn = new Button("B");
 		Button gameChoiceCBtn = new Button("C");
 		Button gameChoiceDBtn = new Button("D");
 		
-		gridGame.add(gameStartBtn, 0, 0);
+		primaryStage.show();
+		
+		gridGame.add(gameResetBtn, 0, 2);
+		gridGame.add(gameStartBtn, 0, 1);
 		gridGame.add(gameChoiceABtn, 1, 4);
 		gridGame.add(gameChoiceBBtn, 1, 5);
 		gridGame.add(gameChoiceCBtn, 1, 6);
@@ -281,8 +276,9 @@ public class MainApp extends Application{
 		//MAIN MENU BUTTON
 		Button mainMenuBtnMap = new Button("Main Menu");
 		Button mainMenuBtnGame = new Button("Main Menu");
+		
 		gridMap.add(mainMenuBtnMap, 0, 1);
-		gridGame.add(mainMenuBtnGame, 0, 1);
+		gridGame.add(mainMenuBtnGame, 0, 0);
 		
 		mainMenuBtnMap.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -291,7 +287,6 @@ public class MainApp extends Application{
 				//Map screen main Menu button  event handler
 				primaryStage.setScene(sceneMain);
 				primaryStage.show();
-				
 			}
 		});
 		mainMenuBtnGame.setOnAction(new EventHandler<ActionEvent>() {
@@ -303,6 +298,28 @@ public class MainApp extends Application{
 				primaryStage.show();
 			}
 		});
+		
+		
+		//Add IDs to buttons
+		gameChoiceABtn.setId("glass-grey");
+		gameChoiceBBtn.setId("glass-grey");
+		gameChoiceCBtn.setId("glass-grey");
+		gameChoiceDBtn.setId("glass-grey");
+		//
+		gameBtn.setId("menu-button");
+		mapBtn.setId("menu-button");
+		mainMenuBtnGame.setId("menu-button");
+		mainMenuBtnMap.setId("menu-button");
+		gameResetBtn.setId("menu-button");
+		gameStartBtn.setId("menu-button");
+		
+		//add stylesheets to all scenes
+		sceneMain.getStylesheets().add
+		(MainApp.class.getResource("stylesheet.css").toExternalForm());
+		sceneMap.getStylesheets().add
+		(MainApp.class.getResource("stylesheet.css").toExternalForm());
+		sceneGame.getStylesheets().add
+		(MainApp.class.getResource("stylesheet.css").toExternalForm());
 		
 	}
 }
