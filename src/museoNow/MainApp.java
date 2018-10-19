@@ -2,6 +2,8 @@ package museoNow;
 
 import javafx.geometry.Insets;
 import java.util.*;
+
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 
 
@@ -43,16 +46,14 @@ public class MainApp extends Application{
 		
 		Text sceneTitle = new Text("Welcome to Museo Now!");
 		sceneTitle.setId("text");
-		sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		gridMain.add(sceneTitle, 0, 0, 2, 1);
 		
 		//GAME
 		GridPane gridGame = new GridPane();
 		Text gameSceneTitle = new Text("Game about stuff");
+
 		gameSceneTitle.setId("text");
 		Scene sceneGame = new Scene(gridGame, 800, 300);
-		
-		gameSceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		gridGame.add(gameSceneTitle, 1, 1, 2, 1);
 		
 		gridGame.setAlignment(Pos.TOP_LEFT);
@@ -103,6 +104,7 @@ public class MainApp extends Application{
 		
 		Scene sceneMain = new Scene (gridMain, 800, 300);
 		primaryStage.setScene(sceneMain);
+		primaryStage.show();
 
 		//Buttons for the game screen A/B/C/D
 		
@@ -113,7 +115,6 @@ public class MainApp extends Application{
 		Button gameChoiceCBtn = new Button("C");
 		Button gameChoiceDBtn = new Button("D");
 		
-		primaryStage.show();
 		
 		gridGame.add(gameResetBtn, 0, 2);
 		gridGame.add(gameStartBtn, 0, 1);
@@ -130,13 +131,29 @@ public class MainApp extends Application{
 			gameChoiceDBtn.setDisable(true);
 			//
 		}
+		Text fadingText = new Text();
+		FadeTransition ft = new FadeTransition(Duration.millis(1000), fadingText);
+		ft.setFromValue(1);
+		ft.setToValue(0);
+		ft.setCycleCount(1);
+		ft.setAutoReverse(true);
 		
 		Text questionText = new Text();
 		Text optionsText = new Text();
-		gridGame.add(questionText, 3, 5);
-		gridGame.add(optionsText, 3, 6);
+		Text scoreText = new Text();
+		Text progressText = new Text();
+
+		fadingText.setId("text");
+		scoreText.setId("text");
+		progressText.setId("text");
 		optionsText.setId("text");
 		questionText.setId("text");
+		
+		gridGame.add(fadingText, 0, 4 );
+		gridGame.add(questionText, 3, 5);
+		gridGame.add(optionsText, 3, 6);
+		gridGame.add(progressText, 0, 5, 2, 1);
+		gridGame.add(scoreText, 0, 6, 2, 2);
 		
 		gameResetBtn.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -145,9 +162,10 @@ public class MainApp extends Application{
 				question.destroyQuestions();
 				currentQuestion = 0;
 				scoreHandler.resetScore();
+				progressText.setText("");
+				scoreText.setText("");				
 				questionText.setText("Game reset!");
 				optionsText.setText("Press start game for a new game");
-				
 				gameChoiceABtn.setDisable(true);
 				gameChoiceBBtn.setDisable(true);
 				gameChoiceCBtn.setDisable(true);
@@ -160,6 +178,8 @@ public class MainApp extends Application{
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
+				fadingText.setText("Game Start!");
+				ft.play();
 				if (question.giveQuestionArrayLength() == 0 && question.giveAnswerArrayLength() == 0) {
 					
 					gameChoiceABtn.setDisable(false);
@@ -168,10 +188,9 @@ public class MainApp extends Application{
 					gameChoiceDBtn.setDisable(false);
 					//make some questions
 					question.createQuestions();
-
-					questionText.setFont(new Font(20));
-					optionsText.setFont(new Font(20));
-					System.out.println("kysmys:" + question.showQuestion(currentQuestion)); 
+					progressText.setText(currentQuestion + "/" + question.giveQuestionArrayLength());
+					scoreText.setText("Points: " + scoreHandler.getScore());
+					
 					questionText.setText(question.showQuestion(currentQuestion));
 					optionsText.setText(question.showOptions(currentQuestion));
 				}
@@ -182,17 +201,19 @@ public class MainApp extends Application{
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
-				System.out.println("A");
+				progressText.setText(currentQuestion+ 1 +"/"+ question.giveQuestionArrayLength());
 				question.giveAnswers("A");
 				if (question.checkAnswer(currentQuestion)) {
-					System.out.println("correct!");
 					scoreHandler.setScore(100);
+					fadingText.setText("Correct!");
+					ft.play();
 				}else {
-					System.out.println("wrong!");
+					//wrong anwers inform player!
+					fadingText.setText("Wrong!");
+					ft.play();
 				}
 				if (currentQuestion < question.giveQuestionArrayLength() - 1) {
 					currentQuestion++;
-					System.out.println("kysmys:" + question.showQuestion(currentQuestion)); 
 					questionText.setText(question.showQuestion(currentQuestion));
 					optionsText.setText(question.showOptions(currentQuestion));
 				}else {
@@ -203,6 +224,7 @@ public class MainApp extends Application{
 					gameChoiceCBtn.setDisable(true);
 					gameChoiceDBtn.setDisable(true);
 				}
+				scoreText.setText("Points: " + scoreHandler.getScore());
 			}
 		});
 		gameChoiceBBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -210,18 +232,20 @@ public class MainApp extends Application{
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
+				progressText.setText(currentQuestion + 1 + "/"+ question.giveQuestionArrayLength());
 				question.giveAnswers("B");
-				System.out.println("B");
 				
 				if (question.checkAnswer(currentQuestion)) {
-					System.out.println("correct!");
 					scoreHandler.setScore(100);
+					fadingText.setText("Correct!");
+					ft.play();
 				}else {
-					System.out.println("wrong!");
+					//wrong anwers inform player!
+					fadingText.setText("Wrong!");
+					ft.play();
 				}
 				if (currentQuestion < question.giveQuestionArrayLength() - 1) {
 					currentQuestion++;
-					System.out.println("kysmys:" + question.showQuestion(currentQuestion)); 
 					questionText.setText(question.showQuestion(currentQuestion));
 					optionsText.setText(question.showOptions(currentQuestion));
 				}else {
@@ -232,7 +256,7 @@ public class MainApp extends Application{
 					gameChoiceCBtn.setDisable(true);
 					gameChoiceDBtn.setDisable(true);
 				}
-				
+				scoreText.setText("Points: " + scoreHandler.getScore());
 			}
 		});
 		gameChoiceCBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -240,18 +264,21 @@ public class MainApp extends Application{
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
+				progressText.setText(currentQuestion + 1 +"/"+ question.giveQuestionArrayLength());
 				question.giveAnswers("C");
-				System.out.println("C");
+
 				
 				if (question.checkAnswer(currentQuestion)) {
-					System.out.println("correct!");
 					scoreHandler.setScore(100);
+					fadingText.setText("Correct!");
+					ft.play();
 				}else {
-					System.out.println("wrong!");
+					//wrong anwers inform player!
+					fadingText.setText("Wrong!");
+					ft.play();
 				}
 				if (currentQuestion < question.giveQuestionArrayLength() - 1) {
 					currentQuestion++;
-					System.out.println("kysmys:" + question.showQuestion(currentQuestion)); 
 					questionText.setText(question.showQuestion(currentQuestion));
 					optionsText.setText(question.showOptions(currentQuestion));
 				}else {
@@ -262,6 +289,7 @@ public class MainApp extends Application{
 					gameChoiceCBtn.setDisable(true);
 					gameChoiceDBtn.setDisable(true);
 				}
+				scoreText.setText("Points: " + scoreHandler.getScore());
 			}
 		});
 		gameChoiceDBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -269,18 +297,20 @@ public class MainApp extends Application{
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
+				progressText.setText(currentQuestion + 1 +"/"+ question.giveQuestionArrayLength());
 				question.giveAnswers("D");
-				System.out.println("D");
 				
 				if (question.checkAnswer(currentQuestion)) {
-					System.out.println("correct!");
 					scoreHandler.setScore(100);
+					fadingText.setText("Correct!");
+					ft.play();
 				}else {
-					System.out.println("wrong!");
+					//wrong anwers inform player!
+					fadingText.setText("Wrong!");
+					ft.play();
 				}
 				if (currentQuestion < question.giveQuestionArrayLength() - 1) {
 					currentQuestion++;
-					System.out.println("kysmys:" + question.showQuestion(currentQuestion)); 
 					questionText.setText(question.showQuestion(currentQuestion));
 					optionsText.setText(question.showOptions(currentQuestion));
 				}else {
@@ -291,6 +321,7 @@ public class MainApp extends Application{
 					gameChoiceCBtn.setDisable(true);
 					gameChoiceDBtn.setDisable(true);
 				}
+				scoreText.setText("Points: " + scoreHandler.getScore());
 			}
 		});
 		//MAIN MENU BUTTON

@@ -4,6 +4,7 @@
 }
 #text {
     -fx-fill: white;
+	-fx-font-size: 15pt;
 }
 #glass-grey {
     -fx-background-color: 
