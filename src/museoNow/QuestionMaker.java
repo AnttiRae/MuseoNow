@@ -30,20 +30,20 @@ public class QuestionMaker {
 		try {
 			
 			// read the json file
-			FileReader reader = new FileReader("kysymykset.json");
+			FileReader reader = new FileReader("questions.json");
 			
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
 			
-			JSONArray lang= (JSONArray) jsonObject.get("kysymykset");
+			JSONArray lang= (JSONArray) jsonObject.get("questions");
 			
 			Iterator i = lang.iterator();
 			// take each value from the json array separately
 			while (i.hasNext()) {
 				JSONObject innerObj = (JSONObject) i.next();
-				String kysymys = (String) innerObj.get("kysymys");
-				String vastaus = (String) innerObj.get("vastaus");
-				String vaihtoehdot = (String) innerObj.get("vaihtoehdot");
+				String kysymys = (String) innerObj.get("question");
+				String vastaus = (String) innerObj.get("answer");
+				String vaihtoehdot = (String) innerObj.get("options");
 				
 				//define new arrays
 				String[] newKysymysArray = new String[questionArray.length + 1];

@@ -1,34 +1,34 @@
 {
-  "kysymykset": [
+  "questions": [
     {
-      "kysymys": "Which town is Finland's capital?",
-      "vastaus": "B",
-      "vaihtoehdot": "A:Ylivieska B:Helsinki C:Kouvola D:Toejoki"
+      "question": "Which town is Finland's capital?",
+      "answer": "B",
+      "options": "A:Ylivieska B:Helsinki C:Kouvola D:Toejoki"
     },
     {
-      "kysymys": "How many people live in Finland?",
-      "vastaus": "D",
-      "vaihtoehdot": "A:Five B:50 C:500 D:5000000"
+      "question": "How many people live in Finland?",
+      "answer": "D",
+      "options": "A:Five B:50 C:500 D:5000000"
     },
 	{
-	  "kysymys": "How tall is Turku castle?",
-      "vastaus": "B",
-      "vaihtoehdot":"A:10km B:100m C:200m D:1000m"
+	  "question": "How tall is Turku castle?",
+      "answer": "B",
+      "options":"A:10km B:100m C:200m D:1000m"
 	},
 	{
-	  "kysymys": "What is capital of Varsinais-Suomi?",
-	  "vastaus": "C",
-	  "vaihtoehdot":"A:Salo B:Raisio C:Turku D:Naantali"
+	  "question": "What is capital of Varsinais-Suomi?",
+	  "answer": "C",
+	  "options":"A:Salo B:Raisio C:Turku D:Naantali"
 	},
 	{
-	  "kysymys": "When was Turku cathedral built?",
-	  "vastaus": "B",
-	  "vaihtoehdot":"A:1100's B:1200's C:1300's D:1400's"
+	  "question": "When was Turku cathedral built?",
+	  "answer": "B",
+	  "options":"A:1100's B:1200's C:1300's D:1400's"
 	},
 	{
-	  "kysymys": "When was handcraft museum in Luostarinmäki founded? ",
-	  "vastaus": "D",
-	  "vaihtoehdot":"A:1930 B:1934 C:1938 D:1940"
+	  "question": "When was handcraft museum in Luostarinmäki founded? ",
+	  "answer": "D",
+	  "options":"A:1930 B:1934 C:1938 D:1940"
 	}
 	
   ]
