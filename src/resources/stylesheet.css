@@ -1,6 +1,6 @@
 .root {
     -fx-background-repeat: no-repeat;
-    -fx-background-image: url("background.jpg");
+    -fx-background-image: url("/resources/background.jpg");
 }
 #text {
     -fx-fill: white;

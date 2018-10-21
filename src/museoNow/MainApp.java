@@ -50,11 +50,11 @@ public class MainApp extends Application{
 		
 		//GAME
 		GridPane gridGame = new GridPane();
-		Text gameSceneTitle = new Text("Game about stuff");
+		Text gameSceneTitle = new Text("Quizz Game");
 
 		gameSceneTitle.setId("text");
 		Scene sceneGame = new Scene(gridGame, 800, 300);
-		gridGame.add(gameSceneTitle, 1, 1, 2, 1);
+		gridGame.add(gameSceneTitle, 2, 1, 2, 1);
 		
 		gridGame.setAlignment(Pos.TOP_LEFT);
 		gridGame.setHgap(10);
@@ -349,8 +349,6 @@ public class MainApp extends Application{
 				primaryStage.show();
 			}
 		});
-		
-		
 		//Add IDs to buttons
 		gameChoiceABtn.setId("glass-grey");
 		gameChoiceBBtn.setId("glass-grey");
@@ -363,15 +361,13 @@ public class MainApp extends Application{
 		mainMenuBtnMap.setId("menu-button");
 		gameResetBtn.setId("menu-button");
 		gameStartBtn.setId("menu-button");
-		
 		//add stylesheets to all scenes
 		sceneMain.getStylesheets().add
-		(MainApp.class.getResource("stylesheet.css").toExternalForm());
+		(MainApp.class.getResource("/resources/stylesheet.css").toExternalForm());
 		sceneMap.getStylesheets().add
-		(MainApp.class.getResource("stylesheet.css").toExternalForm());
+		(MainApp.class.getResource("/resources/stylesheet.css").toExternalForm());
 		sceneGame.getStylesheets().add
-		(MainApp.class.getResource("stylesheet.css").toExternalForm());
-		
+		(MainApp.class.getResource("/resources/stylesheet.css").toExternalForm());
 	}
 	
 }
