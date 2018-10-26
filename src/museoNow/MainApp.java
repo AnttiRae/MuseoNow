@@ -1,7 +1,10 @@
 package museoNow;
 
 import javafx.geometry.Insets;
+
+import java.net.URL;
 import java.util.*;
+
 
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
@@ -20,6 +23,15 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javafx.beans.value.ChangeListener;
+import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
+import javafx.scene.web.WebEngine;
+import static javafx.concurrent.Worker.State;
 
 
 public class MainApp extends Application{
@@ -78,12 +90,31 @@ public class MainApp extends Application{
 		mapSceneTitle.setId("text");
 		Scene sceneMap = new Scene(gridMap, 800	,800);
 		
+		WebView webView = new WebView();
+		final WebEngine webEngine = webView.getEngine();
+		
+		URL url = getClass().getResource("/resources/index.html");
+		webEngine.load(url.toExternalForm());
+		
+		// Update the stage title when a new web page title is available
+		webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() 
+		{
+            public void changed(ObservableValue<? extends State> ov, State oldState, State newState) 
+            {
+                if (newState == State.SUCCEEDED) 
+                {
+                    //stage.setTitle(webEngine.getLocation());
+                	primaryStage.setTitle(webEngine.getTitle());
+                }
+            }
+        });
+		
 		//MAP
 		gridMap.setAlignment(Pos.CENTER);
 		gridMap.setHgap(10);
 		gridMap.setVgap(10);
 		gridMap.setPadding(new Insets(25, 25, 25, 25));
-		
+		gridMap.add(webView, 0, 0);
 		mapSceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		gridMap.add(mapSceneTitle, 0, 0, 2, 1);
 		
@@ -363,11 +394,11 @@ public class MainApp extends Application{
 		gameStartBtn.setId("menu-button");
 		//add stylesheets to all scenes
 		sceneMain.getStylesheets().add
-		(MainApp.class.getResource("/resources/stylesheet.css").toExternalForm());
+		(MainApp.class.getResource("/resources/FXStylesheet.css").toExternalForm());
 		sceneMap.getStylesheets().add
-		(MainApp.class.getResource("/resources/stylesheet.css").toExternalForm());
+		(MainApp.class.getResource("/resources/FXStylesheet.css").toExternalForm());
 		sceneGame.getStylesheets().add
-		(MainApp.class.getResource("/resources/stylesheet.css").toExternalForm());
+		(MainApp.class.getResource("/resources/FXStylesheet.css").toExternalForm());
 	}
 	
 }
