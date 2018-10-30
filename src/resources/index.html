@@ -36,12 +36,13 @@ map: L.tileLayer.wms('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?acces
 }),
 
 museums: L.tileLayer.wms('https://kartat-mip.turku.fi/geoserver/ows?', {
-    layers: 'mip_julkaisut:Paikallismuseot Varsinais-Suomessa kiinteisto'
-}) 
+    layers: 'mip_julkaisut:Paikallismuseot Varsinais-Suomessa kiinteisto',
+    format: 'image/png',
+    transparent: 'true'
+})
 };
-
-L.control.layers(mymap).addTo(map);
-
+mymap.map.addTo(map)
+mymap.museums.addTo(map);
 
 
 
