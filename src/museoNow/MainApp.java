@@ -3,9 +3,6 @@ package museoNow;
 import javafx.geometry.Insets;
 
 import java.net.URL;
-import java.util.*;
-
-
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -13,25 +10,14 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
+import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import javafx.beans.value.ChangeListener;
-import javafx.application.Application;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 import javafx.scene.web.WebEngine;
-import static javafx.concurrent.Worker.State;
 
 
 public class MainApp extends Application{
@@ -91,37 +77,23 @@ public class MainApp extends Application{
 		});
 		
 		GridPane gridMap = new GridPane();
-		Text mapSceneTitle = new Text("Map is under construction");
-		mapSceneTitle.setId("text");
 		Scene sceneMap = new Scene(gridMap, 800	,800);
 		
 		WebView webView = new WebView();
 		final WebEngine webEngine = webView.getEngine();
 		
-		URL url = getClass().getResource("/resources/index.html");
+		URL url = getClass().getResource("/resources/leaflet.wms-gh-pages/html/index.html");
+		//leaflet.wms-gh-pages\examples\index.html
 		webEngine.load(url.toExternalForm());
 		
-		// Update the stage title when a new web page title is available
-		webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() 
-		{
-            public void changed(ObservableValue<? extends State> ov, State oldState, State newState) 
-            {
-                if (newState == State.SUCCEEDED) 
-                {
-                    //stage.setTitle(webEngine.getLocation());
-                	primaryStage.setTitle(webEngine.getTitle());
-                }
-            }
-        });
-		
+		GridPane.setHgrow(webView, Priority.ALWAYS);
+		GridPane.setVgrow(webView, Priority.ALWAYS);
 		//MAP
 		gridMap.setAlignment(Pos.CENTER);
 		gridMap.setHgap(10);
 		gridMap.setVgap(10);
-		gridMap.setPadding(new Insets(25, 25, 25, 25));
-		gridMap.add(webView, 0, 0);
-		mapSceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-		gridMap.add(mapSceneTitle, 0, 0, 2, 1);
+		gridMap.setPadding(new Insets(10, 0, 0, 0));
+		gridMap.add(webView, 0, 1);
 		
 		Button mapBtn = new Button("Map");
 		mapBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -403,7 +375,7 @@ public class MainApp extends Application{
 		Button mainMenuBtnMap = new Button("Main Menu");
 		Button mainMenuBtnGame = new Button("Main Menu");
 		
-		gridMap.add(mainMenuBtnMap, 0, 1);
+		gridMap.add(mainMenuBtnMap, 0, 0);
 		gridGame.add(mainMenuBtnGame, 0, 0);
 		
 		mainMenuBtnMap.setOnAction(new EventHandler<ActionEvent>() {
