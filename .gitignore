@@ -25,3 +25,12 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+Ohjelmistotuotanto.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/artifacts/Ohjelmistotuotanto_jar.xml
+.idea/libraries/json_simple_1_1_1.xml
+out/
+src/META-INF/MANIFEST.MF
