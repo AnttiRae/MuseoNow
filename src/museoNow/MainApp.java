@@ -43,6 +43,11 @@ public class MainApp extends Application{
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
+	public String[] SplitQuestions(String questions) {
+		String parts[] = questions.split("\\s");
+		return parts;
+	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -62,11 +67,11 @@ public class MainApp extends Application{
 		
 		//GAME
 		GridPane gridGame = new GridPane();
-		Text gameSceneTitle = new Text("Quizz Game");
+		//Text gameSceneTitle = new Text("Quizz Game");
 
-		gameSceneTitle.setId("text");
+		//gameSceneTitle.setId("text");
 		Scene sceneGame = new Scene(gridGame, 800, 300);
-		gridGame.add(gameSceneTitle, 2, 1, 2, 1);
+		//gridGame.add(gameSceneTitle, 2, 1, 2, 1);
 		
 		gridGame.setAlignment(Pos.TOP_LEFT);
 		gridGame.setHgap(10);
@@ -146,6 +151,10 @@ public class MainApp extends Application{
 		Button gameChoiceCBtn = new Button("C");
 		Button gameChoiceDBtn = new Button("D");
 		
+		gameChoiceABtn.wrapTextProperty().setValue(true);
+		gameChoiceBBtn.wrapTextProperty().setValue(true);
+		gameChoiceCBtn.wrapTextProperty().setValue(true);
+		gameChoiceDBtn.wrapTextProperty().setValue(true);
 		
 		gridGame.add(gameResetBtn, 0, 2);
 		gridGame.add(gameStartBtn, 0, 1);
@@ -181,8 +190,8 @@ public class MainApp extends Application{
 		questionText.setId("text");
 		
 		gridGame.add(fadingText, 0, 4 );
-		gridGame.add(questionText, 3, 5);
-		gridGame.add(optionsText, 3, 6);
+		gridGame.add(questionText, 3, 0);
+		gridGame.add(optionsText, 3, 1);
 		gridGame.add(progressText, 0, 5, 2, 1);
 		gridGame.add(scoreText, 0, 6, 2, 2);
 		
@@ -196,6 +205,7 @@ public class MainApp extends Application{
 				progressText.setText("");
 				scoreText.setText("");				
 				questionText.setText("Game reset!");
+				optionsText.setDisable(false);
 				optionsText.setText("Press start game for a new game");
 				gameChoiceABtn.setDisable(true);
 				gameChoiceBBtn.setDisable(true);
@@ -222,8 +232,15 @@ public class MainApp extends Application{
 					progressText.setText(currentQuestion + "/" + question.giveQuestionArrayLength());
 					scoreText.setText("Points: " + scoreHandler.getScore());
 					
+					String parts[] = SplitQuestions(question.showOptions(currentQuestion));
+					
+					gameChoiceABtn.setText(parts[0]);
+					gameChoiceBBtn.setText(parts[1]);
+					gameChoiceCBtn.setText(parts[2]);
+					gameChoiceDBtn.setText(parts[3]);
+					
 					questionText.setText(question.showQuestion(currentQuestion));
-					optionsText.setText(question.showOptions(currentQuestion));
+					optionsText.setDisable(true);
 				}
 			}
 		});
@@ -246,9 +263,16 @@ public class MainApp extends Application{
 				if (currentQuestion < question.giveQuestionArrayLength() - 1) {
 					currentQuestion++;
 					questionText.setText(question.showQuestion(currentQuestion));
-					optionsText.setText(question.showOptions(currentQuestion));
+					
+					String parts[] = SplitQuestions(question.showOptions(currentQuestion));
+					
+					gameChoiceABtn.setText(parts[0]);
+					gameChoiceBBtn.setText(parts[1]);
+					gameChoiceCBtn.setText(parts[2]);
+					gameChoiceDBtn.setText(parts[3]);
 				}else {
 					questionText.setText("Game Over!");
+					optionsText.setDisable(false);
 					optionsText.setText("Points: "+scoreHandler.getScore());
 					gameChoiceABtn.setDisable(true);
 					gameChoiceBBtn.setDisable(true);
@@ -278,9 +302,16 @@ public class MainApp extends Application{
 				if (currentQuestion < question.giveQuestionArrayLength() - 1) {
 					currentQuestion++;
 					questionText.setText(question.showQuestion(currentQuestion));
-					optionsText.setText(question.showOptions(currentQuestion));
+					
+					String parts[] = SplitQuestions(question.showOptions(currentQuestion));
+					
+					gameChoiceABtn.setText(parts[0]);
+					gameChoiceBBtn.setText(parts[1]);
+					gameChoiceCBtn.setText(parts[2]);
+					gameChoiceDBtn.setText(parts[3]);
 				}else {
 					questionText.setText("Game Over!");
+					optionsText.setDisable(false);
 					optionsText.setText("Points: "+scoreHandler.getScore());
 					gameChoiceABtn.setDisable(true);
 					gameChoiceBBtn.setDisable(true);
@@ -311,9 +342,16 @@ public class MainApp extends Application{
 				if (currentQuestion < question.giveQuestionArrayLength() - 1) {
 					currentQuestion++;
 					questionText.setText(question.showQuestion(currentQuestion));
-					optionsText.setText(question.showOptions(currentQuestion));
+					
+					String parts[] = SplitQuestions(question.showOptions(currentQuestion));
+					
+					gameChoiceABtn.setText(parts[0]);
+					gameChoiceBBtn.setText(parts[1]);
+					gameChoiceCBtn.setText(parts[2]);
+					gameChoiceDBtn.setText(parts[3]);
 				}else {
 					questionText.setText("Game Over!");
+					optionsText.setDisable(false);
 					optionsText.setText("Points: "+scoreHandler.getScore());
 					gameChoiceABtn.setDisable(true);
 					gameChoiceBBtn.setDisable(true);
@@ -343,9 +381,15 @@ public class MainApp extends Application{
 				if (currentQuestion < question.giveQuestionArrayLength() - 1) {
 					currentQuestion++;
 					questionText.setText(question.showQuestion(currentQuestion));
-					optionsText.setText(question.showOptions(currentQuestion));
+					String parts[] = SplitQuestions(question.showOptions(currentQuestion));
+					
+					gameChoiceABtn.setText(parts[0]);
+					gameChoiceBBtn.setText(parts[1]);
+					gameChoiceCBtn.setText(parts[2]);
+					gameChoiceDBtn.setText(parts[3]);
 				}else {
 					questionText.setText("Game Over!");
+					optionsText.setDisable(false);
 					optionsText.setText("Points: "+scoreHandler.getScore());
 					gameChoiceABtn.setDisable(true);
 					gameChoiceBBtn.setDisable(true);
