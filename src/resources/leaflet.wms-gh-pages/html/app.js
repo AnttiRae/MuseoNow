@@ -8,7 +8,7 @@ requirejs.config({
 define(['leaflet', 'leaflet.wms'],
 function(L, wms) {
 
-var tiledMap = createMap('mapID', true);
+var tiledMap = createMap('mapID', false);
 
 function createMap(div, tiled) {
     // Map configuration
@@ -49,11 +49,11 @@ function basemap() {
     });
 }
 
-function blank() {
-    var layer = new L.Layer();
-    layer.onAdd = layer.onRemove = function() {};
-    return layer;
-}
+// function blank() {
+//     var layer = new L.Layer();
+//     layer.onAdd = layer.onRemove = function() {};
+//     return layer;
+// }
 
 // // Export maps for console experimentation
 // return {
