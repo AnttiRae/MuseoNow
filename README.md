@@ -8,3 +8,6 @@ Right now you can only run the code in an IDE (eclipse, netbeans...)
 ## Dependecies:
 * JSON-simple: http://www.java2s.com/Code/Jar/j/Downloadjsonsimple111jar.htm 
 * JavaFX
+  
+This project uses leaflet wms plugin to show WMS data in a map  
+https://github.com/heigeo/leaflet.wms
