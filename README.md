@@ -6,5 +6,5 @@ Right now you can only run the code in an IDE (eclipse, netbeans...)
 2. Add JSON-simple as an external JAR file (https://stackoverflow.com/questions/3280353/how-to-import-a-jar-in-eclipse)
 3. Run the main java file.
 ## Dependecies:
-JSON-simple: http://www.java2s.com/Code/Jar/j/Downloadjsonsimple111jar.htm
-JavaFX
+* JSON-simple: http://www.java2s.com/Code/Jar/j/Downloadjsonsimple111jar.htm 
+* JavaFX
