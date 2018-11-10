@@ -1,8 +1,12 @@
 package museoNow;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 
 import java.net.URL;
+import java.util.Observable;
+
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -15,7 +19,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
+import javafx.scene.control.*;
 import javafx.scene.web.WebView;
 import javafx.scene.web.WebEngine;
 
@@ -114,8 +118,13 @@ public class MainApp extends Application{
 		primaryStage.setScene(sceneMain);
 		primaryStage.show();
 
+		ObservableList<String> options =
+				FXCollections.observableArrayList(
+				"Option 1",
+						"Option 2"
+				);
+		final ComboBox comboBox = new ComboBox(options);
 		//Buttons for the game screen A/B/C/D
-		
 		Button gameResetBtn = new Button("Reset Game");
 		Button gameStartBtn = new Button("Start Game");
 		Button gameChoiceABtn = new Button("A");
@@ -127,7 +136,7 @@ public class MainApp extends Application{
 		gameChoiceBBtn.wrapTextProperty().setValue(true);
 		gameChoiceCBtn.wrapTextProperty().setValue(true);
 		gameChoiceDBtn.wrapTextProperty().setValue(true);
-		
+		gridGame.add(comboBox, 1, 0);
 		gridGame.add(gameResetBtn, 0, 2);
 		gridGame.add(gameStartBtn, 0, 1);
 		gridGame.add(gameChoiceABtn, 1, 4);
