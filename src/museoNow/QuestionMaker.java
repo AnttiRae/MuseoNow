@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Set;
 //import java.util.ArrayList;
 //import java.util.Arrays;
 
@@ -19,11 +20,42 @@ public class QuestionMaker {
 	private String[] questionArray = {};
 	private String[] answerArray = {};
 	private String[] optionsArray = {};
+	private String[] placesArray = {};
 	private String userAnswer;
-	
-	public QuestionMaker() {
+	private String currentPlace;
+
+	public void setGamePlace() {
 
 	}
+
+	public String[] getPlaces() {
+		return placesArray;
+	}
+
+	public void populatePlacesArray(){
+		try {
+
+			// read the json file
+			FileReader reader = new FileReader("questions.json");
+
+			JSONParser jsonParser = new JSONParser();
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
+			System.out.println("Key set");
+			Set<String> places = jsonObject.keySet();
+			System.out.println(places);
+			placesArray = places.toArray(new String[places.size()]);
+
+		} catch (FileNotFoundException ex) {
+			ex.printStackTrace();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} catch (ParseException ex) {
+			ex.printStackTrace();
+		} catch (NullPointerException ex) {
+			ex.printStackTrace();
+		}
+	}
+
 	public void createQuestions() {
 		
 		try {
@@ -33,13 +65,24 @@ public class QuestionMaker {
 			
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
-			
-			JSONArray lang= (JSONArray) jsonObject.get("questions");
-			
-			Iterator i = lang.iterator();
+			System.out.println("Key set");
+			Set<String> places = jsonObject.keySet();
+			System.out.println(places);
+			placesArray = places.toArray(new String[places.size()]);
+
+			System.out.println(placesArray[0]);
+			//JSONArray array = (JSONArray) jsonObject.get("questions");
+
+			JSONObject testing = (JSONObject) jsonObject.get("testi2");
+			JSONArray array = (JSONArray) testing.get("questions");
+			System.out.print("testing var:");
+			System.out.println(testing);
+			System.out.println("array var");
+			System.out.println(array);
+			Iterator iter = array.iterator();
 			// take each value from the json array separately
-			while (i.hasNext()) {
-				JSONObject innerObj = (JSONObject) i.next();
+			while (iter.hasNext()) {
+				JSONObject innerObj = (JSONObject) iter.next();
 				String kysymys = (String) innerObj.get("question");
 				String vastaus = (String) innerObj.get("answer");
 				String vaihtoehdot = (String) innerObj.get("options");

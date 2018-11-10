@@ -26,14 +26,15 @@ import javafx.scene.web.WebEngine;
 
 public class MainApp extends Application{
 
+    ComboBox comboBox = new ComboBox();
 	static QuestionMaker question = new QuestionMaker();
 	ScoreHandler scoreHandler = new ScoreHandler();
 	int currentQuestion = 0;
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
+
 	public String[] SplitQuestions(String questions) {
 		String parts[] = questions.split("\\s");
 		return parts;
@@ -50,11 +51,11 @@ public class MainApp extends Application{
 		gridMain.setHgap(10);
 		gridMain.setVgap(10);
 		gridMain.setPadding(new Insets(25, 25, 25, 25));
-		
+
 		Text sceneTitle = new Text("Welcome to Museo Now!");
 		sceneTitle.setId("text");
 		gridMain.add(sceneTitle, 0, 0, 2, 1);
-		
+
 		//GAME
 		GridPane gridGame = new GridPane();
 		//Text gameSceneTitle = new Text("Quizz Game");
@@ -62,34 +63,36 @@ public class MainApp extends Application{
 		//gameSceneTitle.setId("text");
 		Scene sceneGame = new Scene(gridGame, 800, 300);
 		//gridGame.add(gameSceneTitle, 2, 1, 2, 1);
-		
+
 		gridGame.setAlignment(Pos.TOP_LEFT);
 		gridGame.setHgap(10);
 		gridGame.setVgap(10);
 		gridGame.setPadding(new Insets(25, 25, 25, 25));
-		
+
 		Button gameBtn = new Button("Game");
-		
+
 		gameBtn.setOnAction(new EventHandler<ActionEvent>() {
-			
+
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
+                question.populatePlacesArray();
+                comboBox.getItems().addAll(question.getPlaces());
 				primaryStage.setScene(sceneGame);
 				primaryStage.show();
 			}
 		});
-		
+
 		GridPane gridMap = new GridPane();
 		Scene sceneMap = new Scene(gridMap, 800	,800);
-		
+
 		WebView webView = new WebView();
 		final WebEngine webEngine = webView.getEngine();
-		
+
 		URL url = getClass().getResource("/resources/leaflet.wms-gh-pages/html/index.html");
 		//leaflet.wms-gh-pages\examples\index.html
 		webEngine.load(url.toExternalForm());
-		
+
 		GridPane.setHgrow(webView, Priority.ALWAYS);
 		GridPane.setVgrow(webView, Priority.ALWAYS);
 		//MAP
@@ -98,7 +101,7 @@ public class MainApp extends Application{
 		gridMap.setVgap(10);
 		gridMap.setPadding(new Insets(10, 0, 0, 0));
 		gridMap.add(webView, 0, 1);
-		
+
 		Button mapBtn = new Button("Map");
 		mapBtn.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -109,21 +112,15 @@ public class MainApp extends Application{
 				primaryStage.show();
 			}
 		});
-		
+
 		//Button in main menu
 		gridMain.add(gameBtn, 1, 3);
 		gridMain.add(mapBtn, 0, 3);
-		
+
 		Scene sceneMain = new Scene (gridMain, 800, 300);
 		primaryStage.setScene(sceneMain);
 		primaryStage.show();
 
-		ObservableList<String> options =
-				FXCollections.observableArrayList(
-				"Option 1",
-						"Option 2"
-				);
-		final ComboBox comboBox = new ComboBox(options);
 		//Buttons for the game screen A/B/C/D
 		Button gameResetBtn = new Button("Reset Game");
 		Button gameStartBtn = new Button("Start Game");
