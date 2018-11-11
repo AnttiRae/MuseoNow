@@ -34,10 +34,8 @@ public class QuestionMaker {
 
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
-			System.out.println("Key set");
 			// Get place names from json
 			Set<String> places = jsonObject.keySet();
-			System.out.println(places);
 			// cast Set<String> to String[]
 			placesArray = places.toArray(new String[places.size()]);
 
@@ -61,20 +59,13 @@ public class QuestionMaker {
 			
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
-			System.out.println("Key set");
 			Set<String> places = jsonObject.keySet();
-			System.out.println(places);
 			placesArray = places.toArray(new String[places.size()]);
 
-			System.out.println(placesArray[0]);
-			//JSONArray array = (JSONArray) jsonObject.get("questions");
+			// specify where to take questions from.
+			JSONObject jsonObjectKey = (JSONObject) jsonObject.get(currentPlace);
+			JSONArray array = (JSONArray) jsonObjectKey.get("questions");
 
-			JSONObject testing = (JSONObject) jsonObject.get(currentPlace);
-			JSONArray array = (JSONArray) testing.get("questions");
-			System.out.print("testing var:");
-			System.out.println(testing);
-			System.out.println("array var");
-			System.out.println(array);
 			Iterator iter = array.iterator();
 			// take each value from the json array separately
 			while (iter.hasNext()) {

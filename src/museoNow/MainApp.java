@@ -2,12 +2,9 @@ package museoNow;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 
 import java.net.URL;
-import java.util.Observable;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
@@ -33,6 +30,7 @@ public class MainApp extends Application{
 	ScoreHandler scoreHandler = new ScoreHandler();
 	int currentQuestion = 0;
 
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -45,7 +43,10 @@ public class MainApp extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Museo Now!");
-
+        //populate combobox with places
+        question.populatePlacesArray();
+        comboBox.getItems().addAll(question.getPlaces());
+        comboBox.getSelectionModel().selectFirst();
 
 		//MAIN MENU
 		GridPane gridMain = new GridPane();
@@ -76,7 +77,6 @@ public class MainApp extends Application{
 		comboBox.valueProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                System.out.println("Game change to "+ newValue);
                 question.setGamePlace(newValue.toString());
             }
         });
@@ -85,8 +85,6 @@ public class MainApp extends Application{
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
-                question.populatePlacesArray();
-                comboBox.getItems().addAll(question.getPlaces());
 				primaryStage.setScene(sceneGame);
 				primaryStage.show();
 			}
@@ -206,7 +204,9 @@ public class MainApp extends Application{
 			@Override
 			public void handle(ActionEvent event) {
 				//Press button >> stuff happens here
-				fadingText.setText("Game Start!");
+                optionsText.setDisable(true);
+                optionsText.setText("");
+                fadingText.setText("Game Start!");
 				ft.play();
 				if (question.giveQuestionArrayLength() == 0 && question.giveAnswerArrayLength() == 0) {
 					
@@ -227,7 +227,6 @@ public class MainApp extends Application{
 					gameChoiceDBtn.setText(parts[3]);
 					
 					questionText.setText(question.showQuestion(currentQuestion));
-					optionsText.setDisable(true);
 				}
 			}
 		});
