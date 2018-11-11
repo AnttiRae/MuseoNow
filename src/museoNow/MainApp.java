@@ -1,5 +1,7 @@
 package museoNow;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -71,6 +73,13 @@ public class MainApp extends Application{
 
 		Button gameBtn = new Button("Game");
 
+		comboBox.valueProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                System.out.println("Game change to "+ newValue);
+                question.setGamePlace(newValue.toString());
+            }
+        });
 		gameBtn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override

@@ -5,15 +5,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-//import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
-//import java.util.ArrayList;
-//import java.util.Arrays;
 
 
 public class QuestionMaker {
@@ -24,9 +20,7 @@ public class QuestionMaker {
 	private String userAnswer;
 	private String currentPlace;
 
-	public void setGamePlace() {
-
-	}
+	public void setGamePlace(String place) { currentPlace = place; }
 
 	public String[] getPlaces() {
 		return placesArray;
@@ -41,8 +35,10 @@ public class QuestionMaker {
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
 			System.out.println("Key set");
+			// Get place names from json
 			Set<String> places = jsonObject.keySet();
 			System.out.println(places);
+			// cast Set<String> to String[]
 			placesArray = places.toArray(new String[places.size()]);
 
 		} catch (FileNotFoundException ex) {
@@ -73,7 +69,7 @@ public class QuestionMaker {
 			System.out.println(placesArray[0]);
 			//JSONArray array = (JSONArray) jsonObject.get("questions");
 
-			JSONObject testing = (JSONObject) jsonObject.get("testi2");
+			JSONObject testing = (JSONObject) jsonObject.get(currentPlace);
 			JSONArray array = (JSONArray) testing.get("questions");
 			System.out.print("testing var:");
 			System.out.println(testing);
@@ -131,12 +127,9 @@ public class QuestionMaker {
 	public int giveQuestionArrayLength() {
 		return questionArray.length;
 	}
-	
 	public int giveAnswerArrayLength() {
 		return answerArray.length;
 	}
-	
-	
 	public String showQuestion(int i) {
 		return questionArray[i];
 	}
