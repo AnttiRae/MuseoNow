@@ -1,12 +1,12 @@
 # Ohjelmistotuotanto-ja-Mallennus-kurssi-2018
 
 ## Installation:
-Right now you can only run the code in an IDE (eclipse, netbeans...)
-1. load the project in eclipse or an equivalent IDE program
-2. Add JSON-simple as an external JAR file (https://stackoverflow.com/questions/3280353/how-to-import-a-jar-in-eclipse)
-3. Run the main java file.
+1.  Download museoNow.zip: https://drive.google.com/file/d/1OK7sSTSRDG5O2Gf-FGOEfPyzHUbmgjAT/view  
+2.  Unzip the zip file anywhere you want  
+3.  Make sure you have java installed  
+4.  Run MuseoNow.jar
 ## Dependecies:
-* JSON-simple: http://www.java2s.com/Code/Jar/j/Downloadjsonsimple111jar.htm 
+* JSON-simple 
 * JavaFX
   
 This project uses leaflet wms plugin to show WMS data in a map  
